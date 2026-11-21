@@ -2,6 +2,8 @@
 
 Mimo-style interactive lessons for **SQL**, **Tableau**, **Power BI**, **Python**, and **R**. Sign in to save progress on phone or laptop.
 
+The path is 90 multi-step lessons in 27 modules. SQL runs in the browser on SQLite, Python runs in Pyodide, R runs in a built-in vector and pipe engine, and Tableau and Power BI lessons use shelf, DAX, query, and relationship sandboxes. Progress stores the current step and XP in Supabase.
+
 UX patterns were researched with [REA (Reverse Engineer Anything)](https://rea.tools/) against public Mimo pages; the product, copy, curriculum, and visuals are original.
 
 ## Stack
@@ -20,7 +22,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
 ```
 
-3. Ensure the Supabase schema includes `profiles` and `lesson_progress` with RLS.
+3. Ensure the Supabase schema includes `profiles` and `lesson_progress` with RLS (already applied on the project used for this build).
 4. `npm run dev -- -p 3456`
 5. Open http://localhost:3456
 
