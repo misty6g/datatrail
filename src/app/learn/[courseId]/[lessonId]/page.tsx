@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { LessonPlayer } from "@/components/lesson-player";
-import { getLesson } from "@/lib/curriculum/courses";
+import { flatLessons, getLesson } from "@/lib/curriculum/courses";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function LessonPage({
@@ -21,9 +21,15 @@ export default async function LessonPage({
   if (!user) redirect(`/login?next=/learn/${courseId}/${lessonId}`);
 
   const { course, lesson, index, next } = found;
-  const nextHref = next
-    ? `/learn/${course.id}/${next.id}`
-    : null;
+  const { data: progress } = await supabase
+    .from("lesson_progress")
+    .select("current_step, status")
+    .eq("user_id", user.id)
+    .eq("course_id", courseId)
+    .eq("lesson_id", lessonId)
+    .maybeSingle();
+  const initialStep = progress?.status === "completed" ? lesson.steps.length : progress?.current_step ?? 0;
+  const nextHref = next ? `/learn/${course.id}/${next.id}` : null;
 
   return (
     <>
@@ -37,13 +43,14 @@ export default async function LessonPage({
             ← {course.title}
           </Link>
           <span className="text-[var(--muted)]">
-            Lesson {index + 1} of {course.lessons.length}
+            Lesson {index + 1} of {flatLessons(course).length}
           </span>
         </div>
         <LessonPlayer
           courseId={course.id}
           lesson={lesson}
           nextHref={nextHref}
+          initialStep={initialStep}
         />
       </main>
     </>
