@@ -95,11 +95,11 @@ export default async function CoursePage({
                       const body = (
                         <div className={cn("flex items-center gap-4 rounded-2xl border px-4 py-4", completed ? "border-[var(--accent)]/40 bg-[var(--accent)]/5" : "border-[var(--line)] bg-[var(--surface)]/70", !unlocked && "opacity-60")}>
                           <span className={cn("flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold", completed ? "bg-[var(--accent)] text-[var(--accent-fg)]" : "bg-[var(--surface-2)] text-[var(--muted)]")}>
-                            {completed ? "\u2713" : unlocked ? index + 1 : "\u2022"}
+                            {completed ? "✓" : unlocked ? index + 1 : "•"}
                           </span>
                           <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-[var(--ink)]">{lesson.title} {lesson.capstone ? "\u00b7 Capstone" : ""}</p>
-                            <p className="text-sm text-[var(--muted)]">{lesson.minutes} min{started ? ` \u00b7 step ${steps.get(lesson.id)}` : ""}{!unlocked ? " \u00b7 locked" : ""}</p>
+                            <p className="font-semibold text-[var(--ink)]">{lesson.title} {lesson.capstone ? "· Capstone" : ""}</p>
+                            <p className="text-sm text-[var(--muted)]">{lesson.minutes} min{started ? ` · step ${steps.get(lesson.id)}` : ""}{!unlocked ? " · locked" : ""}</p>
                           </div>
                         </div>
                       );
