@@ -203,7 +203,7 @@ assert parse_spend("n/a") == 0
 assert len(parsed) == 5
 assert parsed_total == 3100
 `,
-      hint: "float(\"$1,200\".replace(\"$", \"\").replace(\",\", \"\")) is 1200. A blank raw value should hit except and return 0.",
+      hint: 'float("$1,200".replace("$", "").replace(",", "")) is 1200. A blank raw value should hit except and return 0.',
     },
     reflect: {
       prompt: "Why convert \"$1,200\" before adding campaign spend?",
@@ -422,3 +422,4 @@ assert sum(1 for row in customers if row["referred_by"] is None) == 6
     closer: "Count None with is None. Luis, Owen, and Hannah are the three customers who were referred.",
   },
 ];
+
